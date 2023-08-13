@@ -350,4 +350,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# for test file
+test.ipynb
+
 # End of https://www.toptal.com/developers/gitignore/api/jupyternotebooks,python,windows,macos,pycharm+all,visualstudiocode
