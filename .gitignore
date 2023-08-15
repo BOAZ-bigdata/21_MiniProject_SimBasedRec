@@ -353,4 +353,9 @@ $RECYCLE.BIN/
 # for test file
 test.ipynb
 
+# for wandb
+wandb/
+
+# for checkpoint
+checkpoint/
 # End of https://www.toptal.com/developers/gitignore/api/jupyternotebooks,python,windows,macos,pycharm+all,visualstudiocode
