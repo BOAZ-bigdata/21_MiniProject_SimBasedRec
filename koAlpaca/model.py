@@ -2,17 +2,24 @@ import torch
 from torch import autograd
 import numpy as np
 import pytorch_lightning as pl
-from peft import get_peft_config, get_peft_model, get_peft_model_state_dict, PrefixTuningConfig, TaskType
+from peft import get_peft_config, get_peft_model, get_peft_model_state_dict, PromptTuningInit, PromptTuningConfig, TaskType, PeftType
 from torch.optim import AdamW
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, get_linear_schedule_with_warmup
+from transformers import AutoModelForCausalLM, get_linear_schedule_with_warmup
 from torch.nn.functional import cross_entropy, binary_cross_entropy_with_logits, softmax
 from torchmetrics import BLEUScore
 
-class T5ModelForPreTraining(pl.LightningModule):
+class AlpacaModelForPreTraining(pl.LightningModule):
     def __init__(self, config, tokenizer) -> None:
         super().__init__()        
-        peft_config = PrefixTuningConfig(task_type=TaskType.SEQ_2_SEQ_LM, inference_mode=False, num_virtual_tokens=config.num_virtual_tokens)
-        lm = AutoModelForSeq2SeqLM.from_pretrained("KETI-AIR/ke-t5-large")
+        peft_config = PromptTuningConfig(
+                    task_type=TaskType.CAUSAL_LM,
+                    prompt_tuning_init=PromptTuningInit.TEXT,
+                    num_virtual_tokens=config.num_virtual_tokens,
+                    prompt_tuning_init_text="상황에 맞는 법령들을 출력해:",
+                    tokenizer_name_or_path="beomi/KoAlpaca-llama-1-7b"
+        )
+
+        lm = AutoModelForCausalLM.from_pretrained("beomi/KoAlpaca-llama-1-7b")
         self.model = get_peft_model(lm, peft_config)
         self.model.print_trainable_parameters()
 
