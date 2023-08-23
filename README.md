@@ -35,11 +35,21 @@ BOAZ 21기 분석 미니프로젝트 2조 repository입니다.
 <br/>
 
 ## Project Summary
-To be added later
+개인이 처한 상황을 입력하면, 상황에 맞는 법령과 판례를 받아볼 수 있는 법률 추천 시스템
+
+### Components
+- 법령 추천 (Using BERT, T5)
+- 판례 추천 (Using BM25)
+
+
+### Dataset
+[Lbox open dataset](https://huggingface.co/datasets/lbox/lbox_open)
 
 <br/>
 
 ## ETCs
-To be added later
+
+### Environment
+[Docker image](https://hub.docker.com/r/pytorchlightning/pytorch_lightning)
 
 <br/><br/>
